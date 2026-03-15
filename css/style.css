@@ -1,0 +1,132 @@
+body {
+font-family: 'Noto Sans JP', sans-serif;
+background-color: #ffffff
+}
+header {
+  color: #ffffff;
+  background-color: #0356fc;
+}
+header .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 7px 0;
+}
+header .logo{
+  font-size: 24px;
+  font-weight: 500;
+}
+header nav ul{
+  display: flex;
+}
+header nav ul li{
+  margin-left: 50px;
+  transition: .2s;
+}
+header nav ul li:hover{
+  color:  #00ced1;
+  transition: .2s;
+}
+.main_visual{
+  background-image: url('../images/ikeya-eki.png');
+  background-size: cover;
+  background-position: center center;
+}
+.main_visual .container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1280px;
+  height: 750px;
+  position: relative;
+}
+.main_visual .title{
+  position: absolute;
+  bottom: 400px; 
+  font-weight: 500; 
+}
+.section1{
+  padding: 80px 0;
+}
+.section1 .container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+.section1 .row{
+  display: flex;
+  justify-content: space-between;
+}
+.section .col{
+  width: 48%;
+}
+.section .sub_title{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.section1 h2{
+  font-size: 48px;
+  font-weight: 500;
+  line-height:1.6;
+}
+.section1 .text {
+  font-size: 18px;
+  line-height: 1.8;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.section1  .btn {
+  font-size: 18px;
+  border: solid 1px  #000000;
+  border-radius: 100px;
+  display: inline-block;
+  width: 270px;
+  line-height: 60px;
+  text-align: center ;
+  transition: .2s;
+}
+.section1 .btn:hover  {
+  color:  #00ced1;
+  border: solid 1px #00ced1;
+  transition: .2s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
