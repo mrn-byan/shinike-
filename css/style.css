@@ -146,6 +146,42 @@ header nav ul li:hover{
     height: auto;
   }
 }
+/* リンク集を二列にする設定 */
+.link_list {
+  display: flex;
+  flex-wrap: wrap;       /* 入り切らない分を折り返す */
+  justify-content: space-between; /* 左右に広げて配置 */
+  gap: 20px;            /* アイテム間の隙間 */
+}
+
+.link_item {
+  width: 48%;           /* 二列にするため約半分（余白分を引く） */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  color: inherit;
+  transition: 0.3s;
+}
+
+.link_item:hover {
+  border-color: #0356fc; /* ホバー時に神池ブルーにする */
+  background-color: #f9f9f9;
+}
+
+.link_item .arrow img {
+  width: 50px;          /* アイコンのサイズ調整 */
+  height: auto;
+}
+
+/* スマホでは一列にする */
+@media (max-width: 768px) {
+  .link_item {
+    width: 100%;
+  }
+}
 
 
 
