@@ -187,11 +187,6 @@ header nav ul li:hover{
    ===================================================== */
 
 /* アクティブなナビリンク */
-header nav ul li a.nav-active {
-  color: #00ced1;
-  border-bottom: 2px solid #00ced1;
-  padding-bottom: 2px;
-}
 
 /* ===== ページ全体レイアウト ===== */
 .bbs-main {
