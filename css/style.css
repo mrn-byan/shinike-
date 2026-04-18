@@ -182,6 +182,301 @@ header nav ul li:hover{
     width: 100%;
   }
 }
+/* =====================================================
+   掲示板ページ用CSS（style.css の末尾に追記してください）
+   ===================================================== */
+
+/* アクティブなナビリンク */
+header nav ul li a.nav-active {
+  color: #00ced1;
+  border-bottom: 2px solid #00ced1;
+  padding-bottom: 2px;
+}
+
+/* ===== ページ全体レイアウト ===== */
+.bbs-main {
+  padding: 80px 0 100px;
+  min-height: calc(100vh - 200px);
+}
+
+.bbs-main .container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 820px;
+}
+
+/* ===== ページタイトル ===== */
+.bbs-heading {
+  margin-bottom: 56px;
+}
+.bbs-heading .sub_title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #0356fc;
+  margin-bottom: 12px;
+}
+.bbs-heading h1 {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+}
+.bbs-desc {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* ===== 投稿フォームセクション ===== */
+.bbs-form-section {
+  background: #f7f9ff;
+  border: 1px solid #d9e4ff;
+  border-top: 4px solid #0356fc;
+  border-radius: 4px;
+  padding: 36px 40px;
+  margin-bottom: 56px;
+}
+.bbs-form-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #0356fc;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.bbs-field {
+  margin-bottom: 20px;
+}
+.bbs-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
+  letter-spacing: 0.05em;
+}
+.required {
+  font-size: 11px;
+  background: #0356fc;
+  color: #fff;
+  border-radius: 3px;
+  padding: 1px 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0;
+}
+.bbs-field input,
+.bbs-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+  box-sizing: border-box;
+}
+.bbs-field input:focus,
+.bbs-field textarea:focus {
+  outline: none;
+  border-color: #0356fc;
+  box-shadow: 0 0 0 3px rgba(3, 86, 252, 0.12);
+}
+.bbs-field textarea {
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.bbs-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* 投稿ボタン（サイト共通 .btn を継承 + 色追加） */
+.bbs-submit-btn {
+  background: #0356fc;
+  color: #fff;
+  border: solid 1px #0356fc;
+  width: auto;
+  min-width: 180px;
+  line-height: 54px;
+  padding: 0 32px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.bbs-submit-btn:hover:not(:disabled) {
+  background: transparent;
+  color: #0356fc;
+  border-color: #0356fc;
+}
+.bbs-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ステータスメッセージ */
+.status-msg {
+  font-size: 14px;
+  font-weight: 700;
+}
+.status-info    { color: #555; }
+.status-success { color: #1a9e4e; }
+.status-warn    { color: #c87200; }
+.status-error   { color: #d9534f; }
+
+/* ===== 投稿一覧セクション ===== */
+
+
+.bbs-posts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.post-count {
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}
+.bbs-reload-btn {
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #0356fc;
+  background: none;
+  border: 1px solid #0356fc;
+  border-radius: 100px;
+  padding: 5px 16px;
+  cursor: pointer;
+  transition: .2s;
+}
+.bbs-reload-btn:hover {
+  background: #0356fc;
+  color: #fff;
+}
+
+/* ===== 投稿カード ===== */
+.post {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+  animation: postFadeIn .4s ease both;
+  transition: box-shadow .2s;
+}
+.post:hover {
+  box-shadow: 0 4px 16px rgba(3, 86, 252, 0.08);
+}
+
+@keyframes postFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.post-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #0356fc;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.post-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #222;
+}
+.post-date {
+  font-size: 12px;
+  color: #aaa;
+}
+.post-message {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding-left: 50px;
+}
+
+/* ===== ローディング ===== */
+.bbs-loading {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 60px 0;
+}
+.bbs-loading-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0356fc;
+  animation: dotBounce .9s infinite ease-in-out;
+}
+.bbs-loading-dot:nth-child(2) { animation-delay: .15s; background: #0356fc; opacity: .7; }
+.bbs-loading-dot:nth-child(3) { animation-delay: .30s; background: #00ced1; }
+
+@keyframes dotBounce {
+  0%, 100% { transform: translateY(0); opacity: .5; }
+  50%       { transform: translateY(-8px); opacity: 1; }
+}
+
+/* ===== 空・エラー表示 ===== */
+.bbs-empty,
+.bbs-error {
+  text-align: center;
+  padding: 60px 0;
+  font-size: 15px;
+  color: #888;
+}
+.bbs-error { color: #d9534f; }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 768px) {
+  .bbs-form-section {
+    padding: 24px 20px;
+  }
+  .bbs-heading h1 {
+    font-size: 30px;
+  }
+  .post-message {
+    padding-left: 0;
+    margin-top: 10px;
+  }
+  .bbs-form-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bbs-submit-btn {
+    width: 100%;
+    text-align: center;
+    line-height: 52px;
+  }
+}
 
 
 
