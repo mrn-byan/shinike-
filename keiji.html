@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>掲示板 - 神池電鉄</title>
+
+  <!-- リセットCSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@3.0.2/destyle.css">
+
+  <!-- サイト共通CSS -->
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="images/favicon.ico" />
+</head>
+
+<body>
+
+  <!-- ===== ヘッダー（index.htmlと共通） ===== -->
+  <header>
+    <div class="row">
+      <a href="./index.html" class="logo">
+        <img src="images/logo1.png" alt="神池電鉄">
+      </a>
+      <nav>
+        <ul>
+          <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd4CXGQ6Jehd-SYPX-6Y6-yxEeSQxrlsolYAlniXfnGXeqmcg/viewform?usp=dialog">バグの報告</a></li>
+          <li><a href="https://www.roblox.com/share/g/839269506">コニュニティーに参加</a></li>
+          <li><a href="./history.html">開発履歴</a></li>
+          <li><a href="./keiji.html" class="nav-active">掲示板</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== メインコンテンツ ===== -->
+  <main class="bbs-main">
+    <div class="container">
+
+      <!-- ページタイトル -->
+      <div class="bbs-heading">
+        <p class="sub_title">BULLETIN BOARD</p>
+        <h1>掲示板</h1>
+        <p class="bbs-desc">神池電鉄についてのご意見・ご感想など、お気軽にどうぞ。</p>
+      </div>
+
+      <!-- 投稿フォーム -->
+      <section class="bbs-form-section">
+        <div class="bbs-form-inner">
+          <div class="bbs-form-label">新しい投稿</div>
+          <div class="bbs-field">
+            <label for="name">お名前 <span class="required">必須</span></label>
+            <input type="text" id="name" placeholder="例：鉄道ファン" maxlength="20">
+          </div>
+          <div class="bbs-field">
+            <label for="message">メッセージ <span class="required">必須</span></label>
+            <textarea id="message" rows="5" placeholder="メッセージを入力してください..."></textarea>
+          </div>
+          <div class="bbs-form-footer">
+            <div id="status-msg" class="status-msg"></div>
+            <button id="submit-btn" class="btn bbs-submit-btn" onclick="submitPost()">投稿する</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 投稿一覧 -->
+      <section class="bbs-posts-section">
+        <div class="bbs-posts-header">
+          <span id="post-count" class="post-count"></span>
+          <button class="bbs-reload-btn" onclick="fetchPosts()">↻ 更新</button>
+        </div>
+        <div id="post-container">
+          <div class="bbs-loading">
+            <div class="bbs-loading-dot"></div>
+            <div class="bbs-loading-dot"></div>
+            <div class="bbs-loading-dot"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ===== フッター ===== -->
+  <footer style="text-align: center; padding: 40px 0; color: #888;">
+    神池電鉄はメタバースRoblox上の架空鉄道です<br>
+    実在の人物、団体とは一切関係ございません。<br>
+    &copy; 2026 神池電鉄 / Shinike Railway
+  </footer>
+
+  <!-- ===== スクリプト ===== -->
+  <script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxUJauHKgLx0j_RmFzXrXH5Ln79yVu7lsuvi6MXj1-FSSlq-B_XVH2HRuSX5UmcP11j/exec";
+
+    const container   = document.getElementById('post-container');
+    const statusMsg   = document.getElementById('status-msg');
+    const submitBtn   = document.getElementById('submit-btn');
+    const postCount   = document.getElementById('post-count');
+
+    /* ---------- 投稿一覧の取得 ---------- */
+    async function fetchPosts() {
+      container.innerHTML = `
+        <div class="bbs-loading">
+          <div class="bbs-loading-dot"></div>
+          <div class="bbs-loading-dot"></div>
+          <div class="bbs-loading-dot"></div>
+        </div>`;
+      try {
+        const res = await fetch(GAS_URL);
+        if (!res.ok) throw new Error("通信エラー");
+        const posts = await res.json();
+
+        postCount.textContent = `${posts.length} 件の投稿`;
+
+        if (posts.length === 0) {
+          container.innerHTML = '<p class="bbs-empty">まだ投稿はありません。最初の一言をどうぞ！</p>';
+          return;
+        }
+
+        container.innerHTML = posts.slice().reverse().map((post, i) => `
+          <article class="post" style="animation-delay:${i * 0.05}s">
+            <div class="post-header">
+              <div class="post-avatar">${escapeHtml(post.名前).charAt(0)}</div>
+              <div class="post-meta">
+                <span class="post-name">${escapeHtml(post.名前)}</span>
+                <span class="post-date">${formatDate(post.タイムスタンプ)}</span>
+              </div>
+            </div>
+            <div class="post-message">${escapeHtml(post.メッセージ)}</div>
+          </article>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = '<p class="bbs-error">データの読み込みに失敗しました。しばらくしてから再度お試しください。</p>';
+      }
+    }
+
+    /* ---------- 投稿の送信 ---------- */
+    async function submitPost() {
+      const nameVal = document.getElementById('name').value.trim();
+      const msgVal  = document.getElementById('message').value.trim();
+
+      if (!nameVal || !msgVal) {
+        setStatus("⚠️ お名前とメッセージを入力してください。", "warn");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      setStatus("⏳ 送信中...", "info");
+
+      try {
+        await fetch(GAS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify({ name: nameVal, message: msgVal })
+        });
+
+        setStatus("✅ 投稿が完了しました！", "success");
+        document.getElementById('message').value = "";
+
+        setTimeout(() => {
+          setStatus("", "");
+          fetchPosts();
+          submitBtn.disabled = false;
+        }, 2000);
+      } catch (err) {
+        setStatus("❌ 送信に失敗しました。", "error");
+        submitBtn.disabled = false;
+      }
+    }
+
+    function setStatus(text, type) {
+      statusMsg.textContent = text;
+      statusMsg.className = "status-msg " + (type ? "status-" + type : "");
+    }
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, m =>
+        ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])
+      );
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "";
+      const d = new Date(dateStr);
+      return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+    }
+
+    fetchPosts();
+  </script>
+
+</body>
+</html>
