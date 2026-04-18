@@ -11,14 +11,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
   <link rel="icon" href="images/favicon.ico" />
   <style>
-    .main_visual{
-    background-image: url('./images/神池路線図.jpg');
-    background-size: cover;
-    background-position: center center;
-    width: auto;
-    height: 700px;
-    object-fit: contain;
-    }
+    .main_visual {
+    width: 100%;                /* 画面幅いっぱい */
+    height: 500px;              /* スマホで見やすい高さに調整（任意） */
+    overflow-x: auto;           /* 横スクロールを有効にする */
+    overflow-y: hidden;         /* 縦スクロールは隠す */
+    border: 1px solid #ccc;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 2. 中の画像（imgタグ） */
+  .main_visual img {
+    height: 100%;               /* 高さをコンテナ(500px)に合わせる */
+    width: auto;                /* 横幅は比率を維持して自動拡大 */
+    display: block;
+    /* 路線図がスマホでも小さくなりすぎないよう、最小幅を確保する */
+    min-width: 800px;           
+  }
     
   </style>
 </head>
@@ -32,7 +41,7 @@
           <li><a href="index.html">ホーム</a></li>
           <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd4CXGQ6Jehd-SYPX-6Y6-yxEeSQxrlsolYAlniXfnGXeqmcg/viewform?usp=dialog">バグの報告</a></li>
           <li><a href="history.html">開発履歴</a></li>
-          <li><a href="rosen.html">路線図</a></li>
+          <li><a href="link.html">関連リンク</a></li>
         </ul>
       </nav>
     </div>
@@ -44,6 +53,7 @@
       <p style="font-size: 24px;">Route map</p>
     </div>
     <section class="main_visual">
+      <img src ="images/神池路線図.jpg">
       <div class="container">
         <div class="title">
           <div style="font-size: 50px;"></div>
