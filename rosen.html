@@ -11,31 +11,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
   <link rel="icon" href="images/favicon.ico" />
   <style>
-    .main_visual {
-    width: 100%;                /* 画面幅いっぱい */
-    height: 500px;              /* スマホで見やすい高さに調整（任意） */
-    overflow-x: auto;           /* 横スクロールを有効にする */
-    overflow-y: hidden;         /* 縦スクロールは隠す */
-    border: 1px solid #ccc;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* 2. 中の画像（imgタグ） */
-  .main_visual img {
-    height: 100%;               /* 高さをコンテナ(500px)に合わせる */
-    width: auto;                /* 横幅は比率を維持して自動拡大 */
-    display: block;
-    /* 路線図がスマホでも小さくなりすぎないよう、最小幅を確保する */
-    min-width: 800px;           
-  }
-    
+    .wrap { margin: 20px 0 20px 70px; }
+    .main_visual { width: 100%; overflow-x: auto; border: 1px solid #ccc; -webkit-overflow-scrolling: touch; }
+    .main_visual img { width: 100%; min-width: 800px; height: auto; display: block; }
+    .download-btn {
+      display: inline-block; padding: 10px 20px; background: #333; color: #fff;
+      text-decoration: none; border-radius: 5px; font-weight: bold; transition: .3s;
+    }
+    .download-btn:hover { background: #555; }
+    @media (max-width: 768px) { .wrap { margin-left: 20px; } }
   </style>
 </head>
-
 <body>
   <header>
     <div class="row">
-      <a href="index.html" class="logo"> <img src="images/logo1.png" alt="神池電鉄"> </a>
+      <a href="index.html" class="logo"><img src="images/logo1.png" alt="神池電鉄"></a>
       <nav>
         <ul>
           <li><a href="index.html">ホーム</a></li>
@@ -47,31 +37,19 @@
       </nav>
     </div>
   </header>
-  
   <main>
-    <div style="margin-left: 70px; margin-top: 20px;">
-      <div style="font-size: 50px;">路線図</div>
+    <div class="wrap">
+      <h1 style="font-size: 50px;">路線図</h1>
       <p style="font-size: 24px;">Route map</p>
     </div>
-    <section class="main_visual">
-      <img src ="images/神池路線図.jpg">
-      <div class="container">
-        <div class="title">
-          <div style="font-size: 50px;"></div>
-           <p style="font-size: 24px;"></p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section1">
-      <div class="container">
-        
-        
-      </div>
-    </section>
+    <div class="main_visual">
+      <img src="images/神池路線図.jpg" alt="神池電鉄 路線図">
+    </div>
+    <div class="wrap" style="margin-top: 10px;">
+      <a href="images/神池路線図.jpg" download="神池路線図.jpg" class="download-btn">路線図をダウンロード</a>
+    </div>
   </main>
-
-  <footer style="text-align: center; padding: 40px 0; color: #888;">
+  <footer style="text-align: center; padding: 40px 0; color: #888; line-height: 1.6;">
     神池電鉄はメタバースRoblox上の架空鉄道です<br>実在の人物、団体とは一切関係ございません。<br>&copy; 2026 神池電鉄 / Shinike Railway
   </footer>
 </body>
